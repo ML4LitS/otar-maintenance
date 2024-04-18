@@ -10,7 +10,7 @@ from tqdm import tqdm
 import pathlib
 import json
 
-import io
+import os
 import unicodedata
 import datetime
 from statistics import mean
@@ -24,6 +24,12 @@ from functools import partial
 from transformers import AutoTokenizer
 from optimum.onnxruntime import ORTQuantizer, ORTModelForTokenClassification
 from optimum.onnxruntime.configuration import AutoQuantizationConfig, AutoCalibrationConfig
+
+
+import onnxruntime as ort
+# Set environment variables (adjust numbers according to your Slurm resource allocation)
+#os.environ["OMP_NUM_THREADS"] = "4"  # Adjust as per your Slurm --cpus-per-task
+#os.environ["ORT_NUM_THREADS"] = "4"  # Similar adjustment
 
 
 fulltext_scores = {
@@ -703,10 +709,21 @@ if __name__ == "__main__":
 
     
     # model_path_quantised = '/hps/software/users/literature/textmining/test_pipeline/ml_filter_pipeline/ml_fp_filter/quantised'
+#    sess_options = ort.SessionOptions()
+#    sess_options.intra_op_num_threads = int(os.environ["OMP_NUM_THREADS"])
+
+    sess_options = ort.SessionOptions()
+    # Check if SLURM_JOB_ID is set and not empty
+    if os.getenv("SLURM_JOB_ID"):
+        slurm_cpus_on_node = os.getenv("SLURM_CPUS_ON_NODE")
+        if slurm_cpus_on_node:
+            slurm_cpus_on_node = int(slurm_cpus_on_node)  # Convert to integer
+            sess_options.intra_op_num_threads = slurm_cpus_on_node
+            sess_options.inter_op_num_threads = slurm_cpus_on_node
 
     model_path_quantised = args.model[0]
     #print('params are fine')
-    model_quantized = ORTModelForTokenClassification.from_pretrained(model_path_quantised, file_name="model_quantized.onnx")
+    model_quantized = ORTModelForTokenClassification.from_pretrained(model_path_quantised, file_name="model_quantized.onnx", sess_options=sess_options)
     tokenizer_quantized = AutoTokenizer.from_pretrained(model_path_quantised, model_max_length=512, batch_size=4, truncation=True)
 
     ner_quantized = pipeline("token-classification", model=model_quantized, tokenizer=tokenizer_quantized, aggregation_strategy="first")
