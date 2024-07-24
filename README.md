@@ -30,7 +30,8 @@ The first component of the Open Targets Association identification is the `Sente
 - -o : Full path for the output XML file. Note that this argument is simply passed as the name of the output file with the sentence boundaries marked. 
 - -d : The input file type i.e. whether it's an abstract or full-text file (`a` for abstracts, `f` for full-text) 
 See usage below:
-syntax:
+
+Syntax:
 ```
 python Sentenciser.py -f <path/to/input_file.gz> -o </path/to/output_file_name.xml> -d <file_type>
 ```
