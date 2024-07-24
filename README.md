@@ -44,6 +44,8 @@ python Sentenciser.py -f <path/to/input_file.gz> -o </target_save_path/to/output
 ### Cleaning formatting and other tags
 
 The next step in the pipeline is to remove any XML tags appearing with the SENT tag and improve accuracy of NER. This script (CleanTags.py) takes the output of the Sentenciser as input using the -f argument and saves the output file mentioned after the -o option in `.xml` format.
+
+
 Example usage:
 ```
 python CleanTags.py -f <path/to/output_file_from_sentenciser.xml> -o </target_save_path/to/output_file.xml> -d f
