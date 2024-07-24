@@ -1,4 +1,4 @@
-git # OpenTargets Entity Recognition Pipeline 
+# OpenTargets Entity Recognition Pipeline 
 This repository contains the core components of the Open Targets Europe PMC entity recognition and association pipeline, used to annotate biomedical entities and their relationships within scientific literature.
 
 ## Table of Contents
@@ -13,7 +13,7 @@ This repository contains the core components of the Open Targets Europe PMC enti
 - [Pipeline Diagrams](#pipeline-diagrams)
 
 
-## Overview
+### Overview
 As part of the Open Targets literature mining project, Europe PMC team currently annotates Medline abtracts, pre-prints abstract from a number of sources and full-text articles from PubMed Central with BioMedical Entities and provides Entity association for the Open Targets platform. 
 Europe PMC team mines the following target entities using BioBERT model: 
 - Gene/Proteins 
