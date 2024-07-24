@@ -33,7 +33,7 @@ See usage below:
 ```syntax
 python Sentenciser.py -f <path/to/input_file.gz> -o </path/to/output_file_name.xml> -d <file_type>
 ```
-<br>
+
 ```
 Example usage:
 python Sentenciser.py -f <path/to/input_file.gz> -o </target_save_path/to/output_file.xml> -d f
