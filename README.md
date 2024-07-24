@@ -29,20 +29,22 @@ The first component of the Open Targets Association identification is the `Sente
 - -f : Input file path [GZIP XML file] 
 - -o : Full path for the output XML file. Note that this argument is simply passed as the name of the output file with the sentence boundaries marked. 
 - -d : The input file type i.e. whether it's an abstract or full-text file (`a` for abstracts, `f` for full-text) 
-See usage below: 
-```syntax
+See usage below:
+syntax:
+```
 python Sentenciser.py -f <path/to/input_file.gz> -o </path/to/output_file_name.xml> -d <file_type>
 ```
-
-```
 Example usage:
+```
+
 python Sentenciser.py -f <path/to/input_file.gz> -o </target_save_path/to/output_file.xml> -d f
 
 ```
 ### Cleaning formatting and other tags
 
 The next step in the pipeline is to remove any XML tags appearing with the SENT tag and improve accuracy of NER. This script (CleanTags.py) takes the output of the Sentenciser as input using the -f argument and saves the output file mentioned after the -o option in `.xml` format.
-```Example usage:
+Example usage:
+```
 python CleanTags.py -f <path/to/output_file_from_sentenciser.xml> -o </target_save_path/to/output_file.xml> -d f
 ```
 
@@ -55,8 +57,10 @@ This script takes two command line argumnets
 
 - -f : Input XML file path which is output of the CleanTags.py script
 - -o : Output XML file path
-```
+
 Example usage:
+```
+
 python OTAR_new_pipeline_section_tagger.py -f <path/to/output_file_from_cleantags> -o </target_save_path/to/output_file.xml>
 
 ```
